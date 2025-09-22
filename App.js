@@ -15,7 +15,21 @@ function App() {
     setN(n+1);
     
   }
-   
+  
+  const [pshow, setPshow] = useState(false);
+
+  // ✅ template को return से पहले define करें
+  let template=null;
+  if(pshow) {
+    template =<>
+    <button className="hide" onClick={()=>setPshow(!pshow)}>Hide</button>
+    <p>This is a paragraph</p>
+    </>
+  }
+  else{
+    template =<button className='show' onClick={()=>setPshow(!pshow)}>Show</button>
+  }
+
   return (
     <div className="App">
       <button className='adddata' onClick={()=>addData(20,30)}>Add Data</button>'
@@ -25,6 +39,8 @@ function App() {
       {n}
     
       </div>
+      {/* ✅ template को JSX में render करें */}
+      {template}
   );
 }
 
