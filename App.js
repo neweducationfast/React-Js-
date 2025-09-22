@@ -1,48 +1,39 @@
 import './App.css';
-import React from 'react';
-import { useState } from 'react';
-//Even Handline css module 
+import {  useEffect, useState } from 'react';
+
 function App() {
-  let saveData=()=>{
-    prompt("Data Saved");
+  const [count , setCount] = useState(0);
+  let increment = ()=>{
+    setCount(count+1);
   }
-  let addData=(a,b)=>{
-    alert(a+b);
+
+  let decrement = ()=>{
+    setCount(count-1);
   }
-  //statemengemnt in react
-  let [n,setN]=useState(1);
-  let increment=()=>{
-    setN(n+1);
-    
-  }
+  useEffect(()=>{
+    if(count<0){
+     let timer= setTimeout(() => {
+        setCount(0);
+      }, 2000);
+        //clearup function 
+    return()=>{
+      clearTimeout(timer);
+    }
+    }
   
-  const [pshow, setPshow] = useState(false);
-
-  // ✅ template को return से पहले define करें
-  let template=null;
-  if(pshow) {
-    template =<>
-    <button className="hide" onClick={()=>setPshow(!pshow)}>Hide</button>
-    <p>This is a paragraph</p>
-    </>
-  }
-  else{
-    template =<button className='show' onClick={()=>setPshow(!pshow)}>Show</button>
-  }
-
+      
+  },[count]);
+;
   return (
     <div className="App">
-      <button className='adddata' onClick={()=>addData(20,30)}>Add Data</button>'
-      
-      <button className='btn' onClick={saveData}>Save</button>
-      <button className='increment' onClick={increment}>Increment</button>
-      {n}
-    
-      </div>
-      {/* ✅ template को JSX में render करें */}
-      {template}
+       <div className='counter'>
+      <h1 className='count'>{count}</h1>
+      <button className='btn' onClick={increment}>Increment</button>
+      <button className='btn' onClick={decrement}>Decrement</button>
+     </div>
+    </div>
   );
+ 
 }
-
 
 export default App;
